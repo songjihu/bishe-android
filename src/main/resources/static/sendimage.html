@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Upload File</title>
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+
+<form id="Image" action="/fileUpload" method="post" enctype="multipart/form-data">
+    <a href="javascript:;" class="file">
+        <img src="img/bg_sendImage.png" class="img">
+        <input type="file" name="sendImage" id="sendImage">
+        <input type="submit" value="上传" style="display:none" name="sendImageSub" id="sendImageSub"/>
+    </a>
+    <script>
+        var t=document.getElementById('sendImage');
+        //t.onclick=function () { alert("alert"); };
+        t.oninput=function () {
+            //alert("input完成");
+            var name;
+            name = document.getElementById('sendImage').files[0].name;
+            //alert(name.split(".")[1]);
+            if(name.split(".")[1]!=null){
+                if(name.split(".")[1]==="jpg"||name.split(".")[1]==="png"){
+                    //alert(name);
+                    document.getElementById('sendImageSub').click();
+                }
+            }
+        }
+
+    </script>
+</form>
+<a href="javascript:;" class="file">选择文件
+    <input type="file" name="" id="sendFile">
+</a>
+<script  src="./js/script.js"></script>
+
+
+
+</body>
+</html>

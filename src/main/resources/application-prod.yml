@@ -22,3 +22,23 @@ spring:
   mybatis:
     mapper-locations: classpath*:com/sjh/mapper/*Mapper.xml #sql语句文件 加载目录下所有的以Mapper.xml结尾的文件
     config-location: classpath:mybatis-config.xml
+
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp .html
+
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+  thymeleaf:
+    prefix: classpath:/static/
+    mode: HTML
+    cache: false
+    encoding: UTF-8
+    #     新版本不支持content-type: text/html，故新写法
+    servlet:
+      content-type: text/html
+
