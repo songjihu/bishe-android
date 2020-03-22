@@ -36,27 +36,4 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var sleep = function (time) { return new Promise(function (resolve) { return setTimeout(resolve, time); }); };
-var upload = document.querySelector(".upload");
-var uploadBtn = document.querySelector(".upload__button");
-uploadBtn.addEventListener("click", function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                upload.classList.add("uploading");
-                return [4 /*yield*/, sleep(10000)];
-            case 1:
-                _a.sent();
-                upload.classList.add("uploaded");
-                return [4 /*yield*/, sleep(2000)];
-            case 2:
-                _a.sent();
-                upload.classList.remove("uploading");
-                upload.classList.add("uploaded-after");
-                return [4 /*yield*/, sleep(1000)];
-            case 3:
-                _a.sent();
-                upload.className = "upload";
-                return [2 /*return*/];
-        }
-    });
-}); });
+

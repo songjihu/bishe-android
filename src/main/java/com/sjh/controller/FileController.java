@@ -15,7 +15,6 @@ import java.util.UUID;
  * 文件上传
  */
 @Controller
-@ResponseBody
 public class FileController {
 
     @GetMapping(value = "/file")
@@ -24,14 +23,20 @@ public class FileController {
     }
 
     @PostMapping(value = "/fileUpload")
-    public String fileUpload(@RequestParam(value = "sendImage") MultipartFile file, Model model, HttpServletRequest request) {
+    public String fileUpload(@RequestParam(value = "sendImage") MultipartFile file,
+                             @RequestParam(value = "sendImage_information")String info,Model model, HttpServletRequest request) {
         if (file.isEmpty()) {
             System.out.println("文件为空空");
         }
+        if(!info.isEmpty()){
+            System.out.println(info);
+        }
+        System.out.println("test");
         String fileName = file.getOriginalFilename();  // 文件名
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+        //String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
         String filePath = "J://temp-rainy//"; // 上传后的路径
-        fileName = UUID.randomUUID() + suffixName; // 新文件名
+        //fileName = UUID.randomUUID() + suffixName; // 新文件名
+        fileName=info.split(":")[4];
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();

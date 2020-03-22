@@ -15,12 +15,12 @@ public class testController {
      * 登录页面
      * @return
      */
-    @GetMapping("sendimage")
-    public String sendimage() {
+    @GetMapping("file1")
+    public String file1() {
         // 这里返回的login指的是src/main/resources/templates目录下的login.html
         // 因此，我们需要在src/main/resources/templates目录下新建一个login.html
         // 当我们通过浏览器访问localhost:8080/login时即可访问到我们编写的login.html
-        return "sendimage";
+        return "file1";
     }
 
 }

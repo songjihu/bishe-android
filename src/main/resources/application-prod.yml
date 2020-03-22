@@ -10,8 +10,8 @@ spring:
   datasource: #数据源
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      driver-class-mame: com mysql.cj.jdb.Driver
-      url: jdbc:mysql://123.56.163.211:3306/shopping?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      driver-class-mame: com.mysql.jdbc.Driver
+      url: jdbc:mysql://123.56.163.211:3306/im_chat?characterEncoding=utf8&serverTimezone=Asia/Shanghai
       username: sjh
       password: 8859844007
       max-active: 20  #最大连接数

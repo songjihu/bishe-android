@@ -8,10 +8,13 @@
 </head>
 <body>
 
+
+
 <form id="Image" action="/fileUpload" method="post" enctype="multipart/form-data">
     <a href="javascript:;" class="file">
         <img src="img/bg_sendImage.png" class="img">
         <input type="file" name="sendImage" id="sendImage">
+        <input type="text" style="display:none" name="sendImage_information" id="sendImage_information">
         <input type="submit" value="上传" style="display:none" name="sendImageSub" id="sendImageSub"/>
     </a>
     <script>
@@ -25,9 +28,27 @@
             if(name.split(".")[1]!=null){
                 if(name.split(".")[1]==="jpg"||name.split(".")[1]==="png"){
                     //alert(name);
-                    document.getElementById('sendImageSub').click();
+                    //name=Number(Math.random().toString().substr(3,length) + Date.now()).toString(36);
+                    sendInfoToJava(guid()+"."+name.split(".")[1]);//发送给java文件名
                 }
             }
+        };
+        function guid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        function sendInfoToJava(msg){
+            //调用android程序中的方法，并传递参数
+            window.AndroidWebView.showInfoFromJs(msg);
+        }
+        //在android代码中调用此方法
+        function showInfoFromJava(msg){
+            //document.getElementById("label").innerHTML = msg;
+            document.getElementById('sendImage_information').value=msg;
+            document.getElementById('sendImageSub').click();//提交
         }
 
     </script>
