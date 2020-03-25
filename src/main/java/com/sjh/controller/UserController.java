@@ -1,23 +1,66 @@
 package com.sjh.controller;
 
 import com.sjh.pojo.UserInfo;
+import com.sun.jndi.toolkit.url.Uri;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.io.File;
 
-@RestController             //表示类下的所有方法返回值都是json
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
+import org.apache.http.entity.ContentType;
+
+
+//@RestController             //表示类下的所有方法返回值都是json
+/**
+ * 头像上传
+ */
+@Controller
 public class UserController {
+
+    @GetMapping(value = "/user2")
+    public String file() {
+        return "user2";
+    }
+
+    @PostMapping(value = "/avatarUpload")
+    public String fileUpload(MultipartFile file1,
+                             HttpServletRequest request) {
+
+
+        String fileName = file1.getOriginalFilename();  // 文件名
+        System.out.println(file1.getSize());
+        //String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+        String filePath = "J://temp-rainy//user_avatar//"; // 上传后的路径
+        fileName = UUID.randomUUID() +suffixName; // 新文件名
+        //fileName=info.split(":")[4];
+        File dest = new File(filePath + fileName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file1.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "user2";
+    }
 
     @Value("${jdbc.url}")
     private String jdbcUrl;//加载自定义参数
