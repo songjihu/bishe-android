@@ -39,16 +39,18 @@ public class UserController {
 
     @PostMapping(value = "/avatarUpload")
     public String fileUpload(MultipartFile file1,
+                             String userId,
                              HttpServletRequest request) {
 
-
+        System.out.println(userId);
         String fileName = file1.getOriginalFilename();  // 文件名
-        System.out.println(file1.getSize());
+
         //String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
 
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
         String filePath = "J://temp-rainy//user_avatar//"; // 上传后的路径
-        fileName = UUID.randomUUID() +suffixName; // 新文件名
+        //fileName = UUID.randomUUID() +suffixName; // 新文件名
+        fileName = userId +suffixName; // 新文件名为用户id加原来的后缀
         //fileName=info.split(":")[4];
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {

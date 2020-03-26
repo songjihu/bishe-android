@@ -236,6 +236,13 @@
                 }
             }
 
+            function sendInfoToJava(){
+                //调用android程序中的方法，并传递参数
+                window.AndroidWebView.showInfoFromJs();
+            }
+
+
+
             function initListeners() {
                 document.querySelector('#btn-reload').addEventListener('click', function() {
                     cropImage && cropImage.destroy();
@@ -247,30 +254,8 @@
                 document.querySelector('#btn-save').addEventListener('click', function() {
                     // downloadFile(imgData);
                     //把裁剪后的图片上传服务器
-                    var blob =b64ToBlob(showImg.src);
-                    var file=new File([blob], "uploaded_file.jpg", { type: "image/jpeg", lastModified: Date.now() });
-                    alert(file.size);
-                    //根据id获取表单
-                    //var form = $("#Image");
-                    //初始化实例
-                    var formData = new FormData();
-                    // 获取content内容
-                    //var content= formData.get("sendImage");
-                    //通过append() 方法向对象中添加content键值对
-                    formData.append("file1",file);
-                    $.ajax({
-                        type : 'post',
-                        url : 'http://192.168.1.109:8080/avatarUpload',
-                        data : formData,
-                        dataType: "json",
-                        cache : false,
-                        processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
-                        contentType : false,
-                        success: function(data) {
-                            if(data){
-                                alert("提交成功");
-                            }
-                        }});
+                    sendInfoToJava("ohohohohoh");//告诉安卓前端要更新了
+                    //alert(file.size);
 
                 });
                 document.querySelector('#btn-detail').addEventListener('click', function() {
@@ -476,9 +461,35 @@
                 }
                 //在android代码中调用此方法
                 function showInfoFromJava(msg){
-                    //document.getElementById("label").innerHTML = msg;
-                    document.getElementById('sendImage_information').value=msg;
-                    document.getElementById('sendImageSub').click();//提交
+                    //得到安卓前端确认后进行更新
+
+                    var blob =b64ToBlob(showImg.src);
+                    var file=new File([blob], "uploaded_file.jpg", { type: "image/jpeg", lastModified: Date.now() });
+                    //alert(file.size);
+                    //根据id获取表单
+                    //var form = $("#Image");
+                    //初始化实例
+                    var formData = new FormData();
+                    // 获取content内容
+                    //var content= formData.get("sendImage");
+                    //通过append() 方法向对象中添加content键值对
+                    formData.append("file1",file);//头像文件
+                    formData.append("userId",msg);//用户id
+                    //post到后台进行操作
+                    $.ajax({
+                        type : 'post',
+                        url : 'http://192.168.1.109:8080/avatarUpload',
+                        data : formData,
+                        dataType: "json",
+                        cache : false,
+                        processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+                        contentType : false,
+                        success: function(data) {
+                            if(data){
+                                //alert("提交成功");
+                            }
+                        }});
+                    sendInfoToJava("修改成功");
                 }
 
             </script>
