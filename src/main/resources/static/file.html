@@ -18,6 +18,17 @@
         <input type="submit" value="上传" style="display:none" name="sendImageSub" id="sendImageSub"/>
     </a>
     <script>
+
+    </script>
+</form>
+<form id="File" action="/moreUpload" method="post" enctype="multipart/form-data">
+    <a href="javascript:;" class="file">
+        <img src="img/bg_sendFile.png" class="img">
+        <input type="file" name="sendFile" id="sendFile">
+        <input type="text" style="display:none" name="sendFile_information" id="sendFile_information">
+        <input type="submit" value="上传" style="display:none" name="sendFileSub" id="sendFileSub"/>
+    </a>
+    <script>
         var t=document.getElementById('sendImage');
         //t.onclick=function () { alert("alert"); };
         t.oninput=function () {
@@ -29,9 +40,17 @@
                 if(name.split(".")[1]==="jpg"||name.split(".")[1]==="png"){
                     //alert(name);
                     //name=Number(Math.random().toString().substr(3,length) + Date.now()).toString(36);
-                    sendInfoToJava(guid()+"."+name.split(".")[1]);//发送给java文件名
+                    sendInfoToJava(guid()+"."+name.split(".")[name.split(".").length-1]+":img");//发送给java文件名
                 }
             }
+        };
+        var t1=document.getElementById('sendFile');
+        t1.oninput=function () {
+            //alert("input完成");
+            var name;
+            name = document.getElementById('sendFile').files[0].name;
+            alert(name);
+            sendInfoToJava(guid()+"."+name.split(".")[name.split(".").length-1]+":file"+":"+name);//发送给java文件名
         };
         function guid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -47,15 +66,18 @@
         //在android代码中调用此方法
         function showInfoFromJava(msg){
             //document.getElementById("label").innerHTML = msg;
-            document.getElementById('sendImage_information').value=msg;
-            document.getElementById('sendImageSub').click();//提交
+            alert(msg);
+            if(msg.split(":")[5]==="img"){
+                document.getElementById('sendImage_information').value=msg;
+                document.getElementById('sendImageSub').click();//提交
+            }
+            if(msg.split(":")[5]==="file"){
+                document.getElementById('sendFile_information').value=msg;
+                document.getElementById('sendFileSub').click();//提交
+            }
         }
-
     </script>
 </form>
-<a href="javascript:;" class="file">选择文件
-    <input type="file" name="" id="sendFile">
-</a>
 <script  src="./js/script.js"></script>
 
 

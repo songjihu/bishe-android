@@ -51,6 +51,33 @@ public class FileController {
         return "file";
     }
 
+    @PostMapping(value = "/moreUpload")
+    public String moreUpload(@RequestParam(value = "sendFile") MultipartFile file,
+                             @RequestParam(value = "sendFile_information")String info,Model model, HttpServletRequest request) {
+        if (file.isEmpty()) {
+            System.out.println("文件为空空");
+        }
+        if(!info.isEmpty()){
+            System.out.println(info);
+        }
+        System.out.println("Filetest");
+        String fileName = file.getOriginalFilename();  // 文件名
+        //String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+        String filePath = "J://temp-rainy//user_file//"; // 上传后的路径
+        //fileName = UUID.randomUUID() + suffixName; // 新文件名
+        fileName=info.split(":")[4];
+        File dest = new File(filePath + fileName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "file";
+    }
+
     @RequestMapping("/uploadAudio")
     @ResponseBody
     public void uploadAudio(@RequestParam(value = "file") MultipartFile file) {
