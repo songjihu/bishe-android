@@ -1,5 +1,5 @@
 spring:
   profiles:
-    active: prod
+    active: dev
 jdbc:
   url: jdbc:mysql://123.56.163.211:3306/shopping?characterEncoding=utf8&serverTimezone=Asia/Shanghai

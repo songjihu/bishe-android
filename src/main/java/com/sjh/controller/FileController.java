@@ -78,6 +78,12 @@ public class FileController {
         return "file";
     }
 
+    @PostMapping(value = "/voiceUpload")
+    public String voiceUpload() {
+        System.out.println("跳转到录音界面");
+        return "voice";
+    }
+
     @RequestMapping("/uploadAudio")
     @ResponseBody
     public void uploadAudio(@RequestParam(value = "file") MultipartFile file) {

@@ -7,7 +7,38 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  datasource: #数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-mame: com.mysql.jdbc.Driver
+      url: jdbc:mysql://123.56.163.211:3306/im_chat?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: sjh
+      password: 8859844007
+      max-active: 20  #最大连接数
+      max-wait: 6000  #等待时间
+      min-idle: 1 #最小空闲
+      test-on-borrow: true #检测连接是否有效（拿出和放回）
+      test-on-return: true
+  mybatis:
+    mapper-locations: classpath*:com/sjh/mapper/*Mapper.xml #sql语句文件 加载目录下所有的以Mapper.xml结尾的文件
+    config-location: classpath:mybatis-config.xml
+
   mvc:
     view:
       prefix: /
-      suffix: .jsp
+      suffix: .jsp .html
+
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+  thymeleaf:
+    prefix: classpath:/static/
+    mode: HTML
+    cache: false
+    encoding: UTF-8
+    #     新版本不支持content-type: text/html，故新写法
+    servlet:
+      content-type: text/html
+
