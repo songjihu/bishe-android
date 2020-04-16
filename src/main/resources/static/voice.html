@@ -29,6 +29,12 @@
 	<div class="btn">
 		<input type="button" name="" id="messageBtn" value="按住 说话">
 	</div>
+	<form id="Voice" style="display: none" action="/voiceUpload" method="post"	enctype="multipart/form-data">
+		<input id="sendVoice" type="file"  style="display:none" name="sendVoice" accept="audio/amr" />
+		<input type="text" style="display:none" name="sendVoice_information" id="sendVoice_information">
+		<input type="submit" value="上传" style="display:none" name="sendFileSub" id="sendVoiceSub"/>
+	</form>
+
 	<script type="text/javascript">
 		var btnElem=document.getElementById("messageBtn");//获取ID
 		var posStart = 0;//初始化起点坐标
@@ -81,9 +87,18 @@
 		};
 		initEvent();
 		function save(){
+			// 获取录音文件并上传
+			document.getElementById('sendVoice').click();
+			window.setTimeout(function(){
+				document.getElementById('sendVoice_information').value="111";
+				document.getElementById('sendVoiceSub').click();//提交
+			}, 3000);
 			//ajax
 			console.log('Success');
 		}
+
+
+
 
 		function guid() {
 			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
