@@ -96,7 +96,7 @@ public class FileController {
         //fileName = UUID.randomUUID() + suffixName; // 新文件名
         //fileName=info.split(":")[4];
         File dest = new File(filePath + fileName);
-        it.sauronsoftware.jave.AudioUtils.amrToMp3(source, dest);
+        //it.sauronsoftware.jave.AudioUtils.amrToMp3(source, dest);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }

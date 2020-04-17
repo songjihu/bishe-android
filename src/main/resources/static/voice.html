@@ -35,11 +35,13 @@
 		<input type="submit" value="上传" style="display:none" name="sendFileSub" id="sendVoiceSub"/>
 	</form>
 
+
 	<script type="text/javascript">
 		var btnElem=document.getElementById("messageBtn");//获取ID
 		var posStart = 0;//初始化起点坐标
 		var posEnd = 0;//初始化终点坐标
 		var posMove = 0;//初始化滑动坐标
+		var end_name;
 		console.log(screen);
 		function initEvent() {
 			btnElem.addEventListener("touchstart", function(event) {
@@ -49,9 +51,10 @@
 				btnElem.value = '松开 结束';
 				console.log("start");
 				console.log(posStart+'---------开始坐标');
-				//发送给安卓告诉他开始录制
+				//发送给安卓告诉他开始录制和输出的文件名
 				var name=guid();
-				sendInfoToJava(name+".mp3"+":start"+":"+name+".mp3");//发送给java文件名，开始录音
+				sendInfoToJava(name+".amr"+":start"+":"+name+".amr");//发送给java文件名，开始录音
+				end_name=name+".amr";
 			});
 			btnElem.addEventListener("touchmove", function(event) {
 				event.preventDefault();//阻止浏览器默认行为
@@ -73,8 +76,7 @@
 				console.log("End");
 				console.log(posEnd+'---------结束坐标');
 
-				var name=guid();
-				sendInfoToJava(name+".mp3"+":stop"+":"+name+".mp3");//发送给java文件名，开始录音
+				sendInfoToJava(".amr"+":stop"+":"+".amr");//发送给java文件名，开始录音
 
 				if(posStart - posEnd < 500 ){
 					console.log("发送成功");
@@ -89,16 +91,10 @@
 		function save(){
 			// 获取录音文件并上传
 			document.getElementById('sendVoice').click();
-			window.setTimeout(function(){
-				document.getElementById('sendVoice_information').value="111";
-				document.getElementById('sendVoiceSub').click();//提交
-			}, 3000);
+			sendInfoToJava(end_name+":voice");//发送给java文件名
 			//ajax
 			console.log('Success');
 		}
-
-
-
 
 		function guid() {
 			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -115,13 +111,11 @@
 		function showInfoFromJava(msg){
 			//document.getElementById("label").innerHTML = msg;
 			//alert(msg);
-			if(msg.split(":")[5]==="img"){
-				document.getElementById('sendImage_information').value=msg;
-				document.getElementById('sendImageSub').click();//提交
-			}
-			if(msg.split(":")[5]==="file"){
-				document.getElementById('sendFile_information').value=msg;
-				document.getElementById('sendFileSub').click();//提交
+			if(msg.split(":")[5]==="voice"){
+				window.setTimeout(function(){
+					document.getElementById('sendVoice_information').value=msg;
+					document.getElementById('sendVoiceSub').click();//提交
+				}, 2000);
 			}
 		}
 	</script>
