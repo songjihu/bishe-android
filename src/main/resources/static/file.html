@@ -77,12 +77,25 @@
             }
         }
 
+        function getLocation() {
+            //alert("input完成");
+            //alert(name);
+            sendInfoToJava("保留"+":location"+":"+"保留");//发送给java文件名
+        }
+
     </script>
 </form>
 
     <a href="javascript:;" class="file">
         <img src="img/bg_sendVoice.png" class="img" id="go_voice" onclick="javascript:location.href='voice.html'">
     </a>
+
+    <a href="javascript:;" class="file">
+        <img src="img/bg_sendLocation.png" class="img" id="sendLocation" onclick="getLocation()">
+    </a>
+
+
+
 
 <script  src="./js/script.js"></script>
 
